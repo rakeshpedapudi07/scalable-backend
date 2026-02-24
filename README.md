@@ -134,14 +134,19 @@ Token validation on each request
 📈 Future Improvements
 
 Docker containerization
+
 GitHub Actions CI pipeline
+
 Rate limiting
+
 Token blacklist/rotation cleanup scheduler
+
 Actuator health monitoring
 
 Microservices split (Auth service / User service)
 
 📄 License
+
 This project is licensed under the MIT License.
 
 👨‍💻 Author
