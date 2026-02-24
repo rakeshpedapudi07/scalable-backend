@@ -122,9 +122,13 @@ http://localhost:8080/swagger-ui/index.html
 🔒 Security Design
 
 Stateless authentication (no server-side sessions)
+
 JWT-based authorization
+
 Roles embedded in token claims
+
 SecurityContext population via filter
+
 Token validation on each request
 
 📈 Future Improvements
@@ -141,5 +145,6 @@ Microservices split (Auth service / User service)
 This project is licensed under the MIT License.
 
 👨‍💻 Author
+
 Rakesh Pedapudi
 Backend Engineering | Secure API Design | Scalable Systems
