@@ -99,7 +99,6 @@ public class UserController {
                     .body(new ApiResponse<>(false, null, "User not found"));
         }
 
-        // 🔐 CRITICAL SECURITY CHECK
         if (!refreshToken.equals(user.getRefreshToken())) {
             return ResponseEntity.status(401)
                     .body(new ApiResponse<>(false, null, "Refresh token mismatch"));
