@@ -37,17 +37,46 @@ The system is organized around business domains rather than technical layers, im
 ### High-Level Structure
 
 ```
-                        controller
-                           ↓
-                        service  
-                           ↓
-                        repository
-                           ↓
-                         entity
-                           ↓
-                        security
-                           ↓
-                        config
+┌──────────────────────────────┐
+│        Client Request        │
+│  (HTTP / REST API Call)      │
+└───────────────┬──────────────┘
+                │
+                ▼
+┌──────────────────────────────┐
+│       Security Filter        │
+│  JWT Validation & Parsing    │
+│  Role Extraction             │
+│  SecurityContext Population  │
+└───────────────┬──────────────┘
+                │
+                ▼
+┌──────────────────────────────┐
+│          Controller          │
+│  Request Mapping             │
+│  DTO Validation              │
+└───────────────┬──────────────┘
+                │
+                ▼
+┌──────────────────────────────┐
+│           Service            │
+│  Business Logic              │
+│  Authorization Checks        │
+│  Token Rotation Logic        │
+└───────────────┬──────────────┘
+                │
+                ▼
+┌──────────────────────────────┐
+│          Repository          │
+│  JPA Data Access             │
+│  Query Execution             │
+└───────────────┬──────────────┘
+                │
+                ▼
+┌──────────────────────────────┐
+│           Database           │
+│  PostgreSQL / H2             │
+└──────────────────────────────┘
 
 ```
 
