@@ -1,7 +1,8 @@
 # Scalable Backend
 
-A production-oriented Spring Boot backend implementing secure JWT authentication, role-based authorization, refresh token rotation, and layered architecture principles.
+A production-ready Spring Boot backend implementing stateless JWT authentication, role-based access control, refresh token rotation, and secure REST API design.
 
+This project demonstrates clean architecture principles, domain-based modular organization, and secure authentication flows suitable for modern distributed systems.
 ---
 
 ## 🚀 Overview
