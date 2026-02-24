@@ -176,10 +176,10 @@ http://localhost:8080/swagger-ui/index.html
 
 Microservices split (Auth service / User service)
 
-📄 License
+##📄 License
 
 - This project is licensed under the MIT License.
 
-👨‍💻 Author
-  Rakesh Pedapudi 
+##👨‍💻 Author
+   Rakesh Pedapudi 
  - Backend Engineering | Secure API Design | Scalable Systems
