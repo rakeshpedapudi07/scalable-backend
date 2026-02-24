@@ -22,7 +22,6 @@ public class JwtFilter extends OncePerRequestFilter {
         this.jwtService = jwtService;
     }
 
-    // ✅ This method decides which URLs should bypass the filter
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
 
