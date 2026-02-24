@@ -200,10 +200,6 @@ http://localhost:8080/swagger-ui/index.html
 
 ## 📈 Future Enhancements
 
-- Docker containerization
-- CI/CD pipeline (GitHub Actions)
-- Rate limiting (Bucket4j / Redis)
-- Token blacklist with scheduled cleanup
 - Spring Boot Actuator monitoring
 - Distributed microservices architecture
 - API gateway integration
