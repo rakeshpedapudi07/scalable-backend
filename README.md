@@ -30,20 +30,24 @@ The system is designed with production-readiness in mind, including structured c
 
 ## 🏗 Architecture
 
-This project follows a feature-based modular architecture combined with layered separation.
+This backend follows a **feature-oriented modular architecture** combined with strict layered separation of concerns.
+
+The system is organized around business domains rather than technical layers, improving scalability and long-term maintainability.
+
+### High-Level Structure
 
 ```
-controller
-↓
-service  
-↓
-repository
-↓
-entity
-↓
-security
-↓
-config
+                        controller
+                           ↓
+                        service  
+                           ↓
+                        repository
+                           ↓
+                         entity
+                           ↓
+                        security
+                           ↓
+                        config
 
 ```
 
