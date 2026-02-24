@@ -30,7 +30,7 @@ The system is designed with production-readiness in mind, including structured c
 
 ## 🏗 Architecture
 
-The project follows a structured layered approach:
+This project follows a feature-based modular architecture combined with layered separation.
 
 ```
 controller
@@ -46,17 +46,52 @@ security
 config
 
 ```
+
+### Design Principles
+
+- Feature-first organization
+- Clear separation of concerns
+- Stateless authentication
+- Modular and scalable structure
+- Production-oriented configuration
 ### Package Structure
 
 ```
-config/
-controller/
-service/
-repository/
-entity/
-dto/
-security/
-exception/
+com.rakesh.scalablebackend
+│
+├── common/
+│   ├── response/
+│   │   └── ApiResponse.java
+│   ├── exception/
+│   │   ├── GlobalExceptionHandler.java
+│   │   └── custom exceptions
+│   └── util/
+│
+├── config/
+│   ├── SecurityConfig.java
+│   └── OpenApiConfig.java
+│
+├── security/
+│   ├── jwt/
+│   │   ├── JwtService.java
+│   │   └── JwtFilter.java
+│   └── userdetails/
+│
+├── user/
+│   ├── controller/
+│   │   └── UserController.java
+│   ├── service/
+│   │   └── UserService.java
+│   ├── repository/
+│   │   └── UserRepository.java
+│   ├── entity/
+│   │   ├── User.java
+│   │   └── Role.java
+│   └── dto/
+│       ├── LoginRequest.java
+│       └── UserResponse.java
+│
+└── ScalableBackendApplication.java
 ```
 
 This separation ensures maintainability, scalability, and testability.
@@ -119,37 +154,32 @@ Swagger UI:
 ```
 http://localhost:8080/swagger-ui/index.html
 ```
-🔒 Security Design
+## 🔒 Security Design
 
-Stateless authentication (no server-side sessions)
+- Stateless REST architecture (no server sessions)
+- JWT access & refresh tokens
+- Role-based authorization (USER / ADMIN)
+- Token validation via custom filter
+- SecurityContext population per request
+- Password encryption using BCrypt
+- Endpoint-level access control
 
-JWT-based authorization
+## 📈 Future Enhancements
 
-Roles embedded in token claims
-
-SecurityContext population via filter
-
-Token validation on each request
-
-📈 Future Improvements
-
-Docker containerization
-
-GitHub Actions CI pipeline
-
-Rate limiting
-
-Token blacklist/rotation cleanup scheduler
-
-Actuator health monitoring
+- Docker containerization
+- CI/CD pipeline (GitHub Actions)
+- Rate limiting (Bucket4j / Redis)
+- Token blacklist with scheduled cleanup
+- Spring Boot Actuator monitoring
+- Distributed microservices architecture
+- API gateway integration
 
 Microservices split (Auth service / User service)
 
 📄 License
 
-This project is licensed under the MIT License.
+- This project is licensed under the MIT License.
 
 👨‍💻 Author
-
-Rakesh Pedapudi
-Backend Engineering | Secure API Design | Scalable Systems
+  Rakesh Pedapudi 
+ - Backend Engineering | Secure API Design | Scalable Systems
