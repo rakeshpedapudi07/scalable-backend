@@ -5,6 +5,7 @@ A production-ready Spring Boot backend implementing stateless JWT authentication
 This project demonstrates clean architecture principles, domain-based modular organization, and secure authentication flows suitable for modern distributed systems.
 ---
 
+
 ## 🚀 Overview
 
 This project demonstrates a scalable and secure backend architecture using Spring Boot.  
