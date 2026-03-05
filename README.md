@@ -7,8 +7,6 @@ This project demonstrates clean architecture principles, domain-based modular or
 
 ## 🚀 Overview
 
-
-
 This project demonstrates a scalable and secure backend architecture using Spring Boot.  
 It follows industry-standard layering and stateless authentication practices suitable for modern REST APIs.
 
