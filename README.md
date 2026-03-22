@@ -5,7 +5,7 @@ A production-ready Spring Boot backend implementing stateless JWT authentication
 This project demonstrates clean architecture principles, domain-based modular organization, and secure authentication flows suitable for modern distributed systems.
 ---
 
-## 🚀 Overview
+##  Overview
 
 This project demonstrates a scalable and secure backend architecture using Spring Boot.  
 It follows industry-standard layering and stateless authentication practices suitable for modern REST APIs.
@@ -14,7 +14,7 @@ The system is designed with production-readiness in mind, including structured c
 
 ---
 
-## 🔐 Core Features
+##  Core Features
 
 - Stateless JWT Authentication (Access + Refresh Tokens)
 - Role-Based Access Control (USER / ADMIN)
@@ -29,7 +29,7 @@ The system is designed with production-readiness in mind, including structured c
 
 ---
 
-## 🏗 Architecture
+## Architecture
 
 This backend follows a **feature-oriented modular architecture** combined with strict layered separation of concerns.
 
@@ -132,7 +132,7 @@ This separation ensures maintainability, scalability, and testability.
 
 ---
 
-## 🛠 Tech Stack
+##  Tech Stack
 
 - Java 21
 - Spring Boot
@@ -145,7 +145,7 @@ This separation ensures maintainability, scalability, and testability.
 
 ---
 
-## 📡 API Endpoints
+##  API Endpoints
 
 | Method | Endpoint              | Description              |
 |--------|----------------------|--------------------------|
@@ -159,7 +159,7 @@ This separation ensures maintainability, scalability, and testability.
 
 ---
 
-## ⚙ Configuration
+##  Configuration
 
 Environment variables (recommended for production):
 ```
@@ -171,7 +171,7 @@ JWT_SECRET=your_secret_key
 ```
 ---
 
-## ▶ Running Locally
+##  Running Locally
 
 Using Maven Wrapper:
 
@@ -188,7 +188,7 @@ Swagger UI:
 ```
 http://localhost:8080/swagger-ui/index.html
 ```
-## 🔒 Security Design
+##  Security Design
 
 - Stateless REST architecture (no server sessions)
 - JWT access & refresh tokens
@@ -198,7 +198,7 @@ http://localhost:8080/swagger-ui/index.html
 - Password encryption using BCrypt
 - Endpoint-level access control
 
-## 📈 Future Enhancements
+##  Future Enhancements
 
 - Spring Boot Actuator monitoring
 - Distributed microservices architecture
