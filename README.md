@@ -2,10 +2,11 @@
 
 A production-ready Spring Boot backend implementing stateless JWT authentication, role-based access control, refresh token rotation, and secure REST API design.
 
-This project demonstrates clean architecture principles, domain-based modular organization, and secure authentication flows suitable for modern distributed systems.
+This project demonstrates clean architecture principles, domain-driven modular organization, and secure authentication flows suitable for modern distributed systems.
+
 ---
 
-##  Overview
+## Overview
 
 This project demonstrates a scalable and secure backend architecture using Spring Boot.  
 It follows industry-standard layering and stateless authentication practices suitable for modern REST APIs.
@@ -14,7 +15,7 @@ The system is designed with production-readiness in mind, including structured c
 
 ---
 
-##  Core Features
+## Core Features
 
 - Stateless JWT Authentication (Access + Refresh Tokens)
 - Role-Based Access Control (USER / ADMIN)
@@ -29,188 +30,206 @@ The system is designed with production-readiness in mind, including structured c
 
 ---
 
-## Architecture
+## System Architecture
 
-This backend follows a **feature-oriented modular architecture** combined with strict layered separation of concerns.
+```mermaid
+flowchart TD
+    A[Client Request] --> B[Security Filter]
+    B --> C[JWT Validation]
+    C --> D[Controller Layer]
+    D --> E[Service Layer]
+    E --> F[Repository Layer]
+    F --> G[(Database)]
 
-The system is organized around business domains rather than technical layers, improving scalability and long-term maintainability.
-
-### High-Level Structure
-
+    E --> H[Token Rotation Logic]
+    B --> I[Security Context]
 ```
-┌──────────────────────────────┐
-│        Client Request        │
-│    (HTTP / REST API Call)    │
-└───────────────┬──────────────┘
-                │
-                ▼
-┌──────────────────────────────┐
-│       Security Filter        │
-│  JWT Validation & Parsing    │
-│       Role Extraction        │
-│  SecurityContext Population  │
-└───────────────┬──────────────┘
-                │
-                ▼
-┌──────────────────────────────┐
-│          Controller          │
-│        Request Mapping       │
-│        DTO Validation        │
-└───────────────┬──────────────┘
-                │
-                ▼
-┌──────────────────────────────┐
-│           Service            │
-│        Business Logic        │
-│     Authorization Checks     │
-│     Token Rotation Logic     │
-└───────────────┬──────────────┘
-                │
-                ▼
-┌──────────────────────────────┐
-│          Repository          │
-│        JPA Data Access       │
-│        Query Execution       │
-└───────────────┬──────────────┘
-                │
-                ▼
-┌──────────────────────────────┐
-│           Database           │
-│        PostgreSQL / H2       │
-└──────────────────────────────┘
-
-```
-
-### Design Principles
-
-- Feature-first organization
-- Clear separation of concerns
-- Stateless authentication
-- Modular and scalable structure
-- Production-oriented configuration
-### Package Structure
-
-```
-com.rakesh.scalablebackend
-│
-├── common/
-│   ├── response/
-│   │   └── ApiResponse.java
-│   ├── exception/
-│   │   ├── GlobalExceptionHandler.java
-│   │   └── custom exceptions
-│   └── util/
-│
-├── config/
-│   ├── SecurityConfig.java
-│   └── OpenApiConfig.java
-│
-├── security/
-│   ├── jwt/
-│   │   ├── JwtService.java
-│   │   └── JwtFilter.java
-│   └── userdetails/
-│
-├── user/
-│   ├── controller/
-│   │   └── UserController.java
-│   ├── service/
-│   │   └── UserService.java
-│   ├── repository/
-│   │   └── UserRepository.java
-│   ├── entity/
-│   │   ├── User.java
-│   │   └── Role.java
-│   └── dto/
-│       ├── LoginRequest.java
-│       └── UserResponse.java
-│
-└── ScalableBackendApplication.java
-```
-
-This separation ensures maintainability, scalability, and testability.
 
 ---
 
-##  Tech Stack
+## Request Flow
 
-- Java 21
-- Spring Boot
-- Spring Security
-- Spring Data JPA
-- PostgreSQL
-- JWT (jjwt)
-- OpenAPI (springdoc)
-- Maven
+```mermaid
+sequenceDiagram
+    participant U as User
+    participant F as Filter
+    participant C as Controller
+    participant S as Service
+    participant R as Repository
+    participant DB as Database
 
----
-
-##  API Endpoints
-
-| Method | Endpoint              | Description              |
-|--------|----------------------|--------------------------|
-| POST   | /users               | Register new user        |
-| POST   | /users/login         | Authenticate user        |
-| POST   | /users/refresh       | Refresh access token     |
-| GET    | /users/me            | Get current user         |
-| GET    | /users               | Get all users (Auth)     |
-| GET    | /users/admin         | Admin-only endpoint      |
-| POST   | /users/logout        | Logout user              |
+    U->>F: HTTP Request with JWT
+    F->>F: Validate Token
+    F->>C: Forward Request
+    C->>S: Business Logic
+    S->>R: Fetch or Save Data
+    R->>DB: Execute Query
+    DB-->>R: Data
+    R-->>S: Response
+    S-->>C: Result
+    C-->>U: JSON Response
+```
 
 ---
 
-##  Configuration
+## Authentication Flow
+
+```mermaid
+sequenceDiagram
+    participant U as User
+    participant A as Auth Controller
+    participant S as Auth Service
+    participant DB as Database
+
+    U->>A: Login Request
+    A->>S: Validate Credentials
+    S->>DB: Fetch User
+    DB-->>S: User Data
+    S-->>A: Generate Access + Refresh Token
+    A-->>U: Tokens
+
+    U->>A: Refresh Token
+    A->>S: Validate Refresh Token
+    S-->>A: New Access Token
+    A-->>U: Updated JWT
+```
+
+---
+
+## Design Principles
+
+- Feature-first modular architecture  
+- Clear separation of concerns  
+- Stateless authentication  
+- Scalable and maintainable structure  
+- Production-oriented configuration  
+
+---
+
+## Project Structure (Visual)
+
+```mermaid
+graph TD
+    A[scalable-backend]
+
+    subgraph Core
+        B[config]
+        C[security]
+        D[user module]
+        E[common]
+    end
+
+    subgraph Security
+        C --> C1[JwtService]
+        C --> C2[JwtFilter]
+    end
+
+    subgraph User Module
+        D --> D1[Controller]
+        D --> D2[Service]
+        D --> D3[Repository]
+        D --> D4[Entity]
+        D --> D5[DTO]
+    end
+
+    A --> B
+    A --> C
+    A --> D
+    A --> E
+```
+
+---
+
+## Tech Stack
+
+- Java 21  
+- Spring Boot  
+- Spring Security  
+- Spring Data JPA  
+- PostgreSQL  
+- JWT (jjwt)  
+- OpenAPI (springdoc)  
+- Maven  
+
+---
+
+## API Endpoints
+
+| Method | Endpoint        | Description              |
+|--------|----------------|--------------------------|
+| POST   | /users         | Register new user        |
+| POST   | /users/login   | Authenticate user        |
+| POST   | /users/refresh | Refresh access token     |
+| GET    | /users/me      | Get current user         |
+| GET    | /users         | Get all users (Auth)     |
+| GET    | /users/admin   | Admin-only endpoint      |
+| POST   | /users/logout  | Logout user              |
+
+---
+
+## Configuration
 
 Environment variables (recommended for production):
-```
+
+```env
 DB_URL=jdbc:postgresql://localhost:5432/scalable_backend
 DB_USER=postgres
 DB_PASS=password
 JWT_SECRET=your_secret_key
-
 ```
+
 ---
 
-##  Running Locally
+## Running Locally
 
-Using Maven Wrapper:
+### Using Maven Wrapper
 
 ```bash
 ./mvnw clean install
 ./mvnw spring-boot:run
 ```
-Or:
-```
+
+### Or Build JAR
+
+```bash
 ./mvnw clean package
 java -jar target/scalable-backend-0.0.1-SNAPSHOT.jar
 ```
-Swagger UI:
-```
-http://localhost:8080/swagger-ui/index.html
-```
-##  Security Design
 
-- Stateless REST architecture (no server sessions)
-- JWT access & refresh tokens
-- Role-based authorization (USER / ADMIN)
-- Token validation via custom filter
-- SecurityContext population per request
-- Password encryption using BCrypt
-- Endpoint-level access control
+### Swagger UI
 
-##  Future Enhancements
+🔗 http://localhost:8080/swagger-ui/index.html
 
-- Spring Boot Actuator monitoring
-- Distributed microservices architecture
-- API gateway integration
+---
 
-Microservices split (Auth service / User service)
+## Security Design
 
-## License
+- Stateless REST architecture (no server sessions)  
+- JWT access & refresh token mechanism  
+- Role-based authorization (USER / ADMIN)  
+- Token validation via custom filter  
+- SecurityContext population per request  
+- Password encryption using BCrypt  
+- Endpoint-level access control  
 
-This project is licensed under the MIT License.
+---
+
+## Future Enhancements
+
+- Spring Boot Actuator monitoring  
+- Distributed microservices architecture  
+- API Gateway integration  
+- Microservices split (Auth Service / User Service)  
+
+---
 
 ## Author
 
-Rakesh Pedapudi  
-Backend Engineering · Secure API Design · Scalable Systems
+**Rakesh Pedapudi**  
+Backend Engineering · Secure API Design · Scalable Systems  
+
+---
+
+## License
+
+This project is licensed under the **MIT License**.
